@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>开发规范 on itsfinn&#39;s blog.</title>
+    <link>https://itsfinn.github.io/tags/%E5%BC%80%E5%8F%91%E8%A7%84%E8%8C%83/</link>
+    <description>Recent content in 开发规范 on itsfinn&#39;s blog.</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 11 Apr 2021 14:27:01 +0800</lastBuildDate><atom:link href="https://itsfinn.github.io/tags/%E5%BC%80%E5%8F%91%E8%A7%84%E8%8C%83/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MySQL 开发规范</title>
+      <link>https://itsfinn.github.io/post/mysql-development-specification/</link>
+      <pubDate>Sun, 11 Apr 2021 14:27:01 +0800</pubDate>
+      
+      <guid>https://itsfinn.github.io/post/mysql-development-specification/</guid>
+      <description>基础规范 必须使用InnoDB存储引擎 支持事务、行级锁、并发性能更好、CPU及内存缓存页优化使得资源利用率更高 必须使用UTF8字符集 万国码，无需转码，无乱码风险，节省空间。 数据表、数</description>
+    </item>
+    
+  </channel>
+</rss>
