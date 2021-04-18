@@ -6,13 +6,40 @@
     <description>Recent content in Tags on itsfinn&#39;s blog.</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 10 Apr 2021 15:54:53 +0800</lastBuildDate><atom:link href="https://itsfinn.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 18 Apr 2021 13:04:21 +0800</lastBuildDate><atom:link href="https://itsfinn.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>code review</title>
+      <link>https://itsfinn.github.io/tags/code-review/</link>
+      <pubDate>Sun, 18 Apr 2021 13:04:21 +0800</pubDate>
+      
+      <guid>https://itsfinn.github.io/tags/code-review/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Go</title>
+      <link>https://itsfinn.github.io/tags/go/</link>
+      <pubDate>Sun, 18 Apr 2021 13:04:21 +0800</pubDate>
+      
+      <guid>https://itsfinn.github.io/tags/go/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>mysql</title>
       <link>https://itsfinn.github.io/tags/mysql/</link>
-      <pubDate>Sat, 10 Apr 2021 15:54:53 +0800</pubDate>
+      <pubDate>Sun, 11 Apr 2021 14:27:01 +0800</pubDate>
       
       <guid>https://itsfinn.github.io/tags/mysql/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>开发规范</title>
+      <link>https://itsfinn.github.io/tags/%E5%BC%80%E5%8F%91%E8%A7%84%E8%8C%83/</link>
+      <pubDate>Sun, 11 Apr 2021 14:27:01 +0800</pubDate>
+      
+      <guid>https://itsfinn.github.io/tags/%E5%BC%80%E5%8F%91%E8%A7%84%E8%8C%83/</guid>
       <description></description>
     </item>
     

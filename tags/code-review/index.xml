@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>code review on itsfinn&#39;s blog.</title>
+    <link>https://itsfinn.github.io/tags/code-review/</link>
+    <description>Recent content in code review on itsfinn&#39;s blog.</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 18 Apr 2021 13:04:21 +0800</lastBuildDate><atom:link href="https://itsfinn.github.io/tags/code-review/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go Code Review Comments</title>
+      <link>https://itsfinn.github.io/post/go-code-review-comments/</link>
+      <pubDate>Sun, 18 Apr 2021 13:04:21 +0800</pubDate>
+      
+      <guid>https://itsfinn.github.io/post/go-code-review-comments/</guid>
+      <description>原文地址：https://github.com/golang/go/wiki/CodeReviewComments Gofmt Comment Sentences Contexts Copying Crypto Rand Declaring Empty Slices Doc Comments Don&amp;rsquo;t Panic Error Strings Examples Goroutine Lifetimes Handle Errors Imports Import Blank Import Dot In-Band Errors Indent Error Flow Initialisms Interfaces</description>
+    </item>
+    
+  </channel>
+</rss>

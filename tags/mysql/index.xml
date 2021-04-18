@@ -6,7 +6,16 @@
     <description>Recent content in mysql on itsfinn&#39;s blog.</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 10 Apr 2021 15:54:53 +0800</lastBuildDate><atom:link href="https://itsfinn.github.io/tags/mysql/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 11 Apr 2021 14:27:01 +0800</lastBuildDate><atom:link href="https://itsfinn.github.io/tags/mysql/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MySQL 开发规范</title>
+      <link>https://itsfinn.github.io/post/mysql-development-specification/</link>
+      <pubDate>Sun, 11 Apr 2021 14:27:01 +0800</pubDate>
+      
+      <guid>https://itsfinn.github.io/post/mysql-development-specification/</guid>
+      <description>基础规范 建表规约 索引规约 SQL规约 字段规约 基础规范 必须使用InnoDB存储引擎 支持事务、行级锁、并发性能更好、CPU及内存缓存页优化使得资源利用率更高 必须使用UTF8字符集 万国码，</description>
+    </item>
+    
     <item>
       <title>MySQL 事务</title>
       <link>https://itsfinn.github.io/post/transaction/</link>
