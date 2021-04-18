@@ -6,23 +6,14 @@
     <description>Recent content in mysql on itsfinn&#39;s blog.</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 11 Apr 2021 14:27:01 +0800</lastBuildDate><atom:link href="https://itsfinn.github.io/tags/mysql/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>MySQL 开发规范</title>
-      <link>https://itsfinn.github.io/post/mysql-development-specification/</link>
-      <pubDate>Sun, 11 Apr 2021 14:27:01 +0800</pubDate>
-      
-      <guid>https://itsfinn.github.io/post/mysql-development-specification/</guid>
-      <description>基础规范 必须使用InnoDB存储引擎 支持事务、行级锁、并发性能更好、CPU及内存缓存页优化使得资源利用率更高 必须使用UTF8字符集 万国码，无需转码，无乱码风险，节省空间。 数据表、数</description>
-    </item>
-    
+    <lastBuildDate>Sat, 10 Apr 2021 15:54:53 +0800</lastBuildDate><atom:link href="https://itsfinn.github.io/tags/mysql/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>MySQL 事务</title>
       <link>https://itsfinn.github.io/post/transaction/</link>
       <pubDate>Sat, 10 Apr 2021 15:54:53 +0800</pubDate>
       
       <guid>https://itsfinn.github.io/post/transaction/</guid>
-      <description>事务的特性 所谓事务，它是一个操作序列，这些操作要么都执行，要么都不执行，它是一个不可分割的工作单位。 Atomicity（原子性） 原子性是指事务是一个不可再分割的工作单位，事务中的操</description>
+      <description>事务的特性 事务隔离级别 ACID vs CAP 使用事务 总结 事务的特性 所谓事务，它是一个操作序列，这些操作要么都执行，要么都不执行，它是一个不可分割的工作单位。 Atomicity（原子性） 原子性是指事</description>
     </item>
     
   </channel>
