@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en-us">
+<html lang="zh-CN">
 <head>
 
     <meta charset="utf-8">
@@ -19,7 +19,7 @@
     <meta name="description" content="本页面收集了Go代码评审的常见评论。并提供了简单的细节解释，可以代码评审时引用。这只是一个常见错误的列表，并不是一个全面的风格指南。你可以把这些当作对 [Effective Go](https://golang.org/doc/effective_go.html)的补充.">
         
     <meta name="author" content="">
-    <meta property="og:url" content="https://itsfinn.github.io/post/go-code-review-comments/">
+    <meta property="og:url" content="https://itsfinn.cc/post/go-code-review-comments/">
 
     <link rel="stylesheet" href="/css/normalize.css">
     
@@ -35,7 +35,7 @@
         <div class="col-group">
             <div class="site-name ">
                 
-                    <a id="logo" href="https://itsfinn.github.io/">
+                    <a id="logo" href="https://itsfinn.cc/">
                         itsfinn&#39;s blog.
                     </a>
                 
@@ -43,7 +43,7 @@
             </div>
             <div>
                 <nav id="nav-menu" class="clearfix">
-                    <a class="current" href="https://itsfinn.github.io/">博客</a>
+                    <a class="current" href="https://itsfinn.cc/">博客</a>
                     
                 </nav>
             </div>
@@ -77,46 +77,50 @@
                             <span class="toc-title">目录 <a href="#" class="toc-dismiss"></a></span>
                             <nav id="TableOfContents">
   <ul>
-    <li><a href="#gofmt">Gofmt</a></li>
-    <li><a href="#comment-sentences">Comment Sentences</a></li>
-    <li><a href="#contexts">Contexts</a></li>
-    <li><a href="#copying">Copying</a></li>
-    <li><a href="#crypto-rand">Crypto Rand</a></li>
-    <li><a href="#declaring-empty-slices">Declaring Empty Slices</a></li>
-    <li><a href="#doc-comments">Doc Comments</a></li>
-    <li><a href="#dont-panic">Don&rsquo;t Panic</a></li>
-    <li><a href="#error-strings">Error Strings</a></li>
-    <li><a href="#examples">Examples</a></li>
-    <li><a href="#goroutine-lifetimes">Goroutine Lifetimes</a></li>
-    <li><a href="#handle-errors">Handle Errors</a></li>
-    <li><a href="#imports">Imports</a></li>
-    <li><a href="#import-blank">Import Blank</a></li>
-    <li><a href="#import-dot">Import Dot</a></li>
-    <li><a href="#in-band-errors">In-Band Errors</a></li>
-    <li><a href="#indent-error-flow">Indent Error Flow</a></li>
-    <li><a href="#initialisms">Initialisms</a></li>
-    <li><a href="#interfaces">Interfaces</a></li>
-    <li><a href="#line-length">Line Length</a></li>
-    <li><a href="#mixed-caps">Mixed Caps</a></li>
-    <li><a href="#named-result-parameters">Named Result Parameters</a></li>
-    <li><a href="#naked-returns">Naked Returns</a></li>
-    <li><a href="#package-comments">Package Comments</a></li>
-    <li><a href="#package-names">Package Names</a></li>
-    <li><a href="#pass-values">Pass Values</a></li>
-    <li><a href="#receiver-names">Receiver Names</a></li>
-    <li><a href="#receiver-type">Receiver Type</a></li>
-    <li><a href="#synchronous-functions">Synchronous Functions</a></li>
-    <li><a href="#useful-test-failures">Useful Test Failures</a></li>
-    <li><a href="#variable-names">Variable Names</a></li>
+    <li>
+      <ul>
+        <li><a href="#gofmt">Gofmt</a></li>
+        <li><a href="#注释应该是句子">注释应该是句子</a></li>
+        <li><a href="#contexts">Contexts</a></li>
+        <li><a href="#复制">复制</a></li>
+        <li><a href="#crypto-rand">Crypto Rand</a></li>
+        <li><a href="#declaring-empty-slices">Declaring Empty Slices</a></li>
+        <li><a href="#doc-comments">Doc Comments</a></li>
+        <li><a href="#dont-panic">Don&rsquo;t Panic</a></li>
+        <li><a href="#error-strings">Error Strings</a></li>
+        <li><a href="#examples">Examples</a></li>
+        <li><a href="#goroutine-lifetimes">Goroutine Lifetimes</a></li>
+        <li><a href="#handle-errors">Handle Errors</a></li>
+        <li><a href="#imports">Imports</a></li>
+        <li><a href="#import-blank">Import Blank</a></li>
+        <li><a href="#import-dot">Import Dot</a></li>
+        <li><a href="#in-band-errors">In-Band Errors</a></li>
+        <li><a href="#indent-error-flow">Indent Error Flow</a></li>
+        <li><a href="#initialisms">Initialisms</a></li>
+        <li><a href="#interfaces">Interfaces</a></li>
+        <li><a href="#line-length">Line Length</a></li>
+        <li><a href="#mixed-caps">Mixed Caps</a></li>
+        <li><a href="#named-result-parameters">Named Result Parameters</a></li>
+        <li><a href="#naked-returns">Naked Returns</a></li>
+        <li><a href="#package-comments">Package Comments</a></li>
+        <li><a href="#package-names">Package Names</a></li>
+        <li><a href="#pass-values">Pass Values</a></li>
+        <li><a href="#receiver-names">Receiver Names</a></li>
+        <li><a href="#receiver-type">Receiver Type</a></li>
+        <li><a href="#synchronous-functions">Synchronous Functions</a></li>
+        <li><a href="#useful-test-failures">Useful Test Failures</a></li>
+        <li><a href="#variable-names">Variable Names</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
                         </aside><div class="post-content">
                             <p>原文地址：https://github.com/golang/go/wiki/CodeReviewComments</p>
 <ul>
 <li><a href="#gofmt">Gofmt</a></li>
-<li><a href="#comment-sentences">Comment Sentences</a></li>
+<li><a href="#%E5%A3%B0%E6%98%8E%E7%9A%84%E6%B3%A8%E9%87%8A%E5%BA%94%E8%AF%A5%E6%98%AF%E5%8F%A5%E5%AD%90">声明的注释应该是句子</a></li>
 <li><a href="#contexts">Contexts</a></li>
-<li><a href="#copying">Copying</a></li>
+<li><a href="#%E5%A4%8D%E5%88%B6">复制</a></li>
 <li><a href="#crypto-rand">Crypto Rand</a></li>
 <li><a href="#declaring-empty-slices">Declaring Empty Slices</a></li>
 <li><a href="#doc-comments">Doc Comments</a></li>
@@ -146,25 +150,42 @@
 <li><a href="#variable-names">Variable Names</a></li>
 </ul>
 <h2 id="gofmt">Gofmt</h2>
-<p>Run <a href="https://golang.org/cmd/gofmt/">gofmt</a> on your code to automatically fix the majority of mechanical style issues. Almost all Go code in the wild uses <code>gofmt</code>. The rest of this document addresses non-mechanical style points.</p>
-<p>An alternative is to use <a href="https://godoc.org/golang.org/x/tools/cmd/goimports">goimports</a>, a superset of <code>gofmt</code> which additionally adds (and removes) import lines as necessary.</p>
-<h2 id="comment-sentences">Comment Sentences</h2>
-<p>See <a href="https://golang.org/doc/effective_go.html#commentary">https://golang.org/doc/effective_go.html#commentary</a>.  Comments documenting declarations should be full sentences, even if that seems a little redundant.  This approach makes them format well when extracted into godoc documentation.  Comments should begin with the name of the thing being described and end in a period:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// Request represents a request to run a command.
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Request</span> <span style="color:#66d9ef">struct</span> { <span style="color:#f92672">...</span>
+<p>在你的代码上运行<a href="https://golang.org/cmd/gofmt/">gofmt</a>可以解决大多数固定的代码风格问题。几乎所有的Go代码都在使用 <code>gofmt</code>。本文档的其他部分会讨论非固定格式的代码风格问题。</p>
+<p>你也可以使用<a href="https://godoc.org/golang.org/x/tools/cmd/goimports">goimports</a>, 它是 <code>gofmt</code> 的超集，可以根据需要添加或删除 import 行。</p>
+<h2 id="注释应该是句子">注释应该是句子</h2>
+<p>参见 <a href="https://golang.org/doc/effective_go.html#commentary">https://golang.org/doc/effective_go.html#commentary</a> 。针对声明的代码注释应该是完整的句子，即使它看起来有些多余。 这样你生成 godoc 文档可读性更好。注释应该以所描述事物的名称开始，并以句号结束:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// Request represents a request to run a command.
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">Request</span> <span class="kd">struct</span> <span class="p">{</span> <span class="o">...</span>
 
-<span style="color:#75715e">// Encode writes the JSON encoding of req to w.
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Encode</span>(<span style="color:#a6e22e">w</span> <span style="color:#a6e22e">io</span>.<span style="color:#a6e22e">Writer</span>, <span style="color:#a6e22e">req</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Request</span>) { <span style="color:#f92672">...</span>
-</code></pre></div><p>and so on.</p>
-<h2 id="contexts">Contexts</h2>
+<span class="c1">// Encode writes the JSON encoding of req to w.
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">Encode</span><span class="p">(</span><span class="nx">w</span> <span class="nx">io</span><span class="p">.</span><span class="nx">Writer</span><span class="p">,</span> <span class="nx">req</span> <span class="o">*</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span> <span class="o">...</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="contexts">Contexts</h2>
 <p>Values of the context.Context type carry security credentials,
 tracing information, deadlines, and cancellation signals across API
 and process boundaries. Go programs pass Contexts explicitly along
 the entire function call chain from incoming RPCs and HTTP requests
 to outgoing requests.</p>
 <p>Most functions that use a Context should accept it as their first parameter:</p>
-<pre><code>func F(ctx context.Context, /* other arguments */) {}
-</code></pre><p>A function that is never request-specific may use context.Background(),
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">F</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="cm">/* other arguments */</span><span class="p">)</span> <span class="p">{}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>A function that is never request-specific may use context.Background(),
 but err on the side of passing a Context even if you think you don&rsquo;t need
 to. The default case is to pass a Context; only use context.Background()
 directly if you have a good reason why the alternative is a mistake.</p>
@@ -179,41 +200,73 @@ in the receiver, in globals, or, if it truly belongs there, in a Context value.<
 <p>Contexts are immutable, so it&rsquo;s fine to pass the same ctx to multiple
 calls that share the same deadline, cancellation signal, credentials,
 parent trace, etc.</p>
-<h2 id="copying">Copying</h2>
-<p>To avoid unexpected aliasing, be careful when copying a struct from another package.
-For example, the bytes.Buffer type contains a <code>[]byte</code> slice. If you copy a <code>Buffer</code>,
-the slice in the copy may alias the array in the original, causing subsequent method
-calls to have surprising effects.</p>
-<p>In general, do not copy a value of type <code>T</code> if its methods are associated with the
-pointer type, <code>*T</code>.</p>
+<h2 id="复制">复制</h2>
+<p>为了避免意外的别名，在从另一个 package 复制结构时，要尤其小心。 例如，bytes.Buffer 类型包含一个 <code>[]byte</code> 切片。如果你复制一个 <code>Buffer</code>， 副本中的切片只是原始数组的别名，从而导致后续方法调用可能会有意外的效果。 一般来说，如果类型 <code>T</code> 的方法，关联的是它的指针类型 <code>*T</code> ，那么不要复制 <code>T</code> 的值。</p>
 <h2 id="crypto-rand">Crypto Rand</h2>
 <p>Do not use package <code>math/rand</code> to generate keys, even throwaway ones.
 Unseeded, the generator is completely predictable. Seeded with <code>time.Nanoseconds()</code>,
 there are just a few bits of entropy. Instead, use <code>crypto/rand</code>&rsquo;s Reader,
 and if you need text, print to hexadecimal or base64:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">import</span> (
-	<span style="color:#e6db74">&#34;crypto/rand&#34;</span>
-	<span style="color:#75715e">// &#34;encoding/base64&#34;
-</span><span style="color:#75715e"></span>	<span style="color:#75715e">// &#34;encoding/hex&#34;
-</span><span style="color:#75715e"></span>	<span style="color:#e6db74">&#34;fmt&#34;</span>
-)
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;crypto/rand&#34;</span>
+	<span class="c1">// &#34;encoding/base64&#34;
+</span><span class="c1"></span>	<span class="c1">// &#34;encoding/hex&#34;
+</span><span class="c1"></span>	<span class="s">&#34;fmt&#34;</span>
+<span class="p">)</span>
 
-<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Key</span>() <span style="color:#66d9ef">string</span> {
-	<span style="color:#a6e22e">buf</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">byte</span>, <span style="color:#ae81ff">16</span>)
-	<span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">rand</span>.<span style="color:#a6e22e">Read</span>(<span style="color:#a6e22e">buf</span>)
-	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
-		panic(<span style="color:#a6e22e">err</span>)  <span style="color:#75715e">// out of randomness, should never happen
-</span><span style="color:#75715e"></span>	}
-	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;%x&#34;</span>, <span style="color:#a6e22e">buf</span>)
-	<span style="color:#75715e">// or hex.EncodeToString(buf)
-</span><span style="color:#75715e"></span>	<span style="color:#75715e">// or base64.StdEncoding.EncodeToString(buf)
-</span><span style="color:#75715e"></span>}
-</code></pre></div><h2 id="declaring-empty-slices">Declaring Empty Slices</h2>
+<span class="kd">func</span> <span class="nf">Key</span><span class="p">()</span> <span class="kt">string</span> <span class="p">{</span>
+	<span class="nx">buf</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">byte</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
+	<span class="nx">_</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">rand</span><span class="p">.</span><span class="nf">Read</span><span class="p">(</span><span class="nx">buf</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>  <span class="c1">// out of randomness, should never happen
+</span><span class="c1"></span>	<span class="p">}</span>
+	<span class="k">return</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;%x&#34;</span><span class="p">,</span> <span class="nx">buf</span><span class="p">)</span>
+	<span class="c1">// or hex.EncodeToString(buf)
+</span><span class="c1"></span>	<span class="c1">// or base64.StdEncoding.EncodeToString(buf)
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="declaring-empty-slices">Declaring Empty Slices</h2>
 <p>当你创建空数组时推荐使用：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">t</span> []<span style="color:#66d9ef">string</span>
-</code></pre></div><p>而不是</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">t</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">string</span>{}
-</code></pre></div><p>前者是一个值为nil的切片。后者只是长度为零，但不是nil。他们在功能上是完全相同的。他们的 <code>len</code> and <code>cap</code>都是零，但是nil切片是更加推荐的方式。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">var</span> <span class="nx">t</span> <span class="p">[]</span><span class="kt">string</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>而不是</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">t</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>前者是一个值为nil的切片。后者只是长度为零，但不是nil。他们在功能上是完全相同的。他们的 <code>len</code> and <code>cap</code>都是零，但是nil切片是更加推荐的方式。</p>
 <p>请注意，在有些特殊情况，更推荐使用不为nil，但长度为零但切片，例如编码
 JSON对象但时候（一个<code>nil</code>切片被编码成<code>null</code>，但是<code>[]string{}</code>被比编码成JSON数组<code>[]</code>）。</p>
 <p>在设计接口时，避免区分nil片和非nil、零长度的片，因为这可能会导致微妙的编程错误。</p>
@@ -248,56 +301,124 @@ should not require renaming. In the event of collision, prefer to rename the mos
 local or project-specific import.</p>
 <p>Imports are organized in groups, with blank lines between them.
 The standard library packages are always in the first group.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
 
-<span style="color:#f92672">import</span> (
-	<span style="color:#e6db74">&#34;fmt&#34;</span>
-	<span style="color:#e6db74">&#34;hash/adler32&#34;</span>
-	<span style="color:#e6db74">&#34;os&#34;</span>
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;fmt&#34;</span>
+	<span class="s">&#34;hash/adler32&#34;</span>
+	<span class="s">&#34;os&#34;</span>
 
-	<span style="color:#e6db74">&#34;appengine/foo&#34;</span>
-	<span style="color:#e6db74">&#34;appengine/user&#34;</span>
+	<span class="s">&#34;appengine/foo&#34;</span>
+	<span class="s">&#34;appengine/user&#34;</span>
 
-	<span style="color:#e6db74">&#34;github.com/foo/bar&#34;</span>
-	<span style="color:#e6db74">&#34;rsc.io/goversion/version&#34;</span>
-)
-</code></pre></div><p><!-- raw HTML omitted -->goimports<!-- raw HTML omitted --> will do this for you.</p>
+	<span class="s">&#34;github.com/foo/bar&#34;</span>
+	<span class="s">&#34;rsc.io/goversion/version&#34;</span>
+<span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><!-- raw HTML omitted -->goimports<!-- raw HTML omitted --> will do this for you.</p>
 <h2 id="import-blank">Import Blank</h2>
 <p>Packages that are imported only for their side effects (using the syntax <code>import _ &quot;pkg&quot;</code>) should only be imported in the main package of a program, or in tests
 that require them.</p>
 <h2 id="import-dot">Import Dot</h2>
 <p>The import . form can be useful in tests that, due to circular dependencies, cannot be made part of the package being tested:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">foo_test</span>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">foo_test</span>
 
-<span style="color:#f92672">import</span> (
-	<span style="color:#e6db74">&#34;bar/testutil&#34;</span> <span style="color:#75715e">// also imports &#34;foo&#34;
-</span><span style="color:#75715e"></span>	. <span style="color:#e6db74">&#34;foo&#34;</span>
-)
-</code></pre></div><p>In this case, the test file cannot be in package foo because it uses bar/testutil, which imports foo.  So we use the &lsquo;import .&rsquo; form to let the file pretend to be part of package foo even though it is not.  Except for this one case, do not use import . in your programs.  It makes the programs much harder to read because it is unclear whether a name like Quux is a top-level identifier in the current package or in an imported package.</p>
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;bar/testutil&#34;</span> <span class="c1">// also imports &#34;foo&#34;
+</span><span class="c1"></span>	<span class="p">.</span> <span class="s">&#34;foo&#34;</span>
+<span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>In this case, the test file cannot be in package foo because it uses bar/testutil, which imports foo.  So we use the &lsquo;import .&rsquo; form to let the file pretend to be part of package foo even though it is not.  Except for this one case, do not use import . in your programs.  It makes the programs much harder to read because it is unclear whether a name like Quux is a top-level identifier in the current package or in an imported package.</p>
 <h2 id="in-band-errors">In-Band Errors</h2>
 <p>In C and similar languages, it&rsquo;s common for functions to return values like -1
 or null to signal errors or missing results:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// Lookup returns the value for key or &#34;&#34; if there is no mapping for key.
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Lookup</span>(<span style="color:#a6e22e">key</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">string</span>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// Lookup returns the value for key or &#34;&#34; if there is no mapping for key.
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">Lookup</span><span class="p">(</span><span class="nx">key</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">string</span>
 
-<span style="color:#75715e">// Failing to check a for an in-band error value can lead to bugs:
-</span><span style="color:#75715e"></span><span style="color:#a6e22e">Parse</span>(<span style="color:#a6e22e">Lookup</span>(<span style="color:#a6e22e">key</span>))  <span style="color:#75715e">// returns &#34;parse failure for value&#34; instead of &#34;no value for key&#34;
-</span></code></pre></div><p>Go&rsquo;s support for multiple return values provides a better solution.
+<span class="c1">// Failing to check a for an in-band error value can lead to bugs:
+</span><span class="c1"></span><span class="nf">Parse</span><span class="p">(</span><span class="nf">Lookup</span><span class="p">(</span><span class="nx">key</span><span class="p">))</span>  <span class="c1">// returns &#34;parse failure for value&#34; instead of &#34;no value for key&#34;
+</span></code></pre></td></tr></table>
+</div>
+</div><p>Go&rsquo;s support for multiple return values provides a better solution.
 Instead of requiring clients to check for an in-band error value, a function should return
 an additional value to indicate whether its other return values are valid. This return
 value may be an error, or a boolean when no explanation is needed.
 It should be the final return value.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// Lookup returns the value for key or ok=false if there is no mapping for key.
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Lookup</span>(<span style="color:#a6e22e">key</span> <span style="color:#66d9ef">string</span>) (<span style="color:#a6e22e">value</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">ok</span> <span style="color:#66d9ef">bool</span>)
-</code></pre></div><p>This prevents the caller from using the result incorrectly:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">Parse</span>(<span style="color:#a6e22e">Lookup</span>(<span style="color:#a6e22e">key</span>))  <span style="color:#75715e">// compile-time error
-</span></code></pre></div><p>And encourages more robust and readable code:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">value</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Lookup</span>(<span style="color:#a6e22e">key</span>)
-<span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">ok</span> {
-	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;no value for %q&#34;</span>, <span style="color:#a6e22e">key</span>)
-}
-<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">Parse</span>(<span style="color:#a6e22e">value</span>)
-</code></pre></div><p>This rule applies to exported functions but is also useful
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// Lookup returns the value for key or ok=false if there is no mapping for key.
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">Lookup</span><span class="p">(</span><span class="nx">key</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="nx">value</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">ok</span> <span class="kt">bool</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>This prevents the caller from using the result incorrectly:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nf">Parse</span><span class="p">(</span><span class="nf">Lookup</span><span class="p">(</span><span class="nx">key</span><span class="p">))</span>  <span class="c1">// compile-time error
+</span></code></pre></td></tr></table>
+</div>
+</div><p>And encourages more robust and readable code:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">value</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nf">Lookup</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span>
+<span class="k">if</span> <span class="p">!</span><span class="nx">ok</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Errorf</span><span class="p">(</span><span class="s">&#34;no value for %q&#34;</span><span class="p">,</span> <span class="nx">key</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="k">return</span> <span class="nf">Parse</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>This rule applies to exported functions but is also useful
 for unexported functions.</p>
 <p>Return values like nil, &ldquo;&rdquo;, 0, and -1 are fine when they are
 valid results for a function, that is, when the caller need not
@@ -308,32 +429,78 @@ code at the cost of requiring more diligence from the programmer.
 In general, Go code should return additional values for errors.</p>
 <h2 id="indent-error-flow">Indent Error Flow</h2>
 <p>Try to keep the normal code path at a minimal indentation, and indent the error handling, dealing with it first. This improves the readability of the code by permitting visually scanning the normal path quickly. For instance, don&rsquo;t write:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
-	<span style="color:#75715e">// error handling
-</span><span style="color:#75715e"></span>} <span style="color:#66d9ef">else</span> {
-	<span style="color:#75715e">// normal code
-</span><span style="color:#75715e"></span>}
-</code></pre></div><p>Instead, write:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
-	<span style="color:#75715e">// error handling
-</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">return</span> <span style="color:#75715e">// or continue, etc.
-</span><span style="color:#75715e"></span>}
-<span style="color:#75715e">// normal code
-</span></code></pre></div><p>If the <code>if</code> statement has an initialization statement, such as:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">f</span>(); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
-	<span style="color:#75715e">// error handling
-</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">return</span>
-} <span style="color:#66d9ef">else</span> {
-	<span style="color:#75715e">// use x
-</span><span style="color:#75715e"></span>}
-</code></pre></div><p>then this may require moving the short variable declaration to its own line:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">f</span>()
-<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
-	<span style="color:#75715e">// error handling
-</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">return</span>
-}
-<span style="color:#75715e">// use x
-</span></code></pre></div><h2 id="initialisms">Initialisms</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+	<span class="c1">// error handling
+</span><span class="c1"></span><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+	<span class="c1">// normal code
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Instead, write:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+	<span class="c1">// error handling
+</span><span class="c1"></span>	<span class="k">return</span> <span class="c1">// or continue, etc.
+</span><span class="c1"></span><span class="p">}</span>
+<span class="c1">// normal code
+</span></code></pre></td></tr></table>
+</div>
+</div><p>If the <code>if</code> statement has an initialization statement, such as:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="k">if</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nf">f</span><span class="p">();</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+	<span class="c1">// error handling
+</span><span class="c1"></span>	<span class="k">return</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+	<span class="c1">// use x
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>then this may require moving the short variable declaration to its own line:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">x</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nf">f</span><span class="p">()</span>
+<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+	<span class="c1">// error handling
+</span><span class="c1"></span>	<span class="k">return</span>
+<span class="p">}</span>
+<span class="c1">// use x
+</span></code></pre></td></tr></table>
+</div>
+</div><h2 id="initialisms">Initialisms</h2>
 <p>Words in names that are initialisms or acronyms (e.g. &ldquo;URL&rdquo; or &ldquo;NATO&rdquo;) have a consistent case. For example, &ldquo;URL&rdquo; should appear as &ldquo;URL&rdquo; or &ldquo;url&rdquo; (as in &ldquo;urlPony&rdquo;, or &ldquo;URLPony&rdquo;), never as &ldquo;Url&rdquo;. As an example: ServeHTTP not ServeHttp. For identifiers with multiple initialized &ldquo;words&rdquo;, use for example &ldquo;xmlHTTPRequest&rdquo; or &ldquo;XMLHTTPRequest&rdquo;.</p>
 <p>This rule also applies to &ldquo;ID&rdquo; when it is short for &ldquo;identifier&rdquo; (which is pretty much all cases when it&rsquo;s not the &ldquo;id&rdquo; as in &ldquo;ego&rdquo;, &ldquo;superego&rdquo;), so write &ldquo;appID&rdquo; instead of &ldquo;appId&rdquo;.</p>
 <p>Code generated by the protocol buffer compiler is exempt from this rule. Human-written code is held to a higher standard than machine-written code.</p>
@@ -349,34 +516,84 @@ the real implementation.</p>
 <p>Do not define interfaces before they are used: without a realistic example
 of usage, it is too difficult to see whether an interface is even necessary,
 let alone what methods it ought to contain.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">consumer</span>  <span style="color:#75715e">// consumer.go
-</span><span style="color:#75715e"></span>
-<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Thinger</span> <span style="color:#66d9ef">interface</span> { <span style="color:#a6e22e">Thing</span>() <span style="color:#66d9ef">bool</span> }
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">consumer</span>  <span class="c1">// consumer.go
+</span><span class="c1"></span>
+<span class="kd">type</span> <span class="nx">Thinger</span> <span class="kd">interface</span> <span class="p">{</span> <span class="nf">Thing</span><span class="p">()</span> <span class="kt">bool</span> <span class="p">}</span>
 
-<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Foo</span>(<span style="color:#a6e22e">t</span> <span style="color:#a6e22e">Thinger</span>) <span style="color:#66d9ef">string</span> { <span style="color:#960050;background-color:#1e0010">…</span> }
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">consumer</span> <span style="color:#75715e">// consumer_test.go
-</span><span style="color:#75715e"></span>
-<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">fakeThinger</span> <span style="color:#66d9ef">struct</span>{ <span style="color:#960050;background-color:#1e0010">…</span> }
-<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">t</span> <span style="color:#a6e22e">fakeThinger</span>) <span style="color:#a6e22e">Thing</span>() <span style="color:#66d9ef">bool</span> { <span style="color:#960050;background-color:#1e0010">…</span> }
-<span style="color:#960050;background-color:#1e0010">…</span>
-<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">Foo</span>(<span style="color:#a6e22e">fakeThinger</span>{<span style="color:#960050;background-color:#1e0010">…</span>}) <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;x&#34;</span> { <span style="color:#960050;background-color:#1e0010">…</span> }
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// DO NOT DO IT!!!
-</span><span style="color:#75715e"></span><span style="color:#f92672">package</span> <span style="color:#a6e22e">producer</span>
+<span class="kd">func</span> <span class="nf">Foo</span><span class="p">(</span><span class="nx">t</span> <span class="nx">Thinger</span><span class="p">)</span> <span class="kt">string</span> <span class="p">{</span> <span class="err">…</span> <span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">consumer</span> <span class="c1">// consumer_test.go
+</span><span class="c1"></span>
+<span class="kd">type</span> <span class="nx">fakeThinger</span> <span class="kd">struct</span><span class="p">{</span> <span class="err">…</span> <span class="p">}</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">t</span> <span class="nx">fakeThinger</span><span class="p">)</span> <span class="nf">Thing</span><span class="p">()</span> <span class="kt">bool</span> <span class="p">{</span> <span class="err">…</span> <span class="p">}</span>
+<span class="err">…</span>
+<span class="k">if</span> <span class="nf">Foo</span><span class="p">(</span><span class="nx">fakeThinger</span><span class="p">{</span><span class="err">…</span><span class="p">})</span> <span class="o">==</span> <span class="s">&#34;x&#34;</span> <span class="p">{</span> <span class="err">…</span> <span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// DO NOT DO IT!!!
+</span><span class="c1"></span><span class="kn">package</span> <span class="nx">producer</span>
 
-<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Thinger</span> <span style="color:#66d9ef">interface</span> { <span style="color:#a6e22e">Thing</span>() <span style="color:#66d9ef">bool</span> }
+<span class="kd">type</span> <span class="nx">Thinger</span> <span class="kd">interface</span> <span class="p">{</span> <span class="nf">Thing</span><span class="p">()</span> <span class="kt">bool</span> <span class="p">}</span>
 
-<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">defaultThinger</span> <span style="color:#66d9ef">struct</span>{ <span style="color:#960050;background-color:#1e0010">…</span> }
-<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">t</span> <span style="color:#a6e22e">defaultThinger</span>) <span style="color:#a6e22e">Thing</span>() <span style="color:#66d9ef">bool</span> { <span style="color:#960050;background-color:#1e0010">…</span> }
+<span class="kd">type</span> <span class="nx">defaultThinger</span> <span class="kd">struct</span><span class="p">{</span> <span class="err">…</span> <span class="p">}</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">t</span> <span class="nx">defaultThinger</span><span class="p">)</span> <span class="nf">Thing</span><span class="p">()</span> <span class="kt">bool</span> <span class="p">{</span> <span class="err">…</span> <span class="p">}</span>
 
-<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">NewThinger</span>() <span style="color:#a6e22e">Thinger</span> { <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">defaultThinger</span>{ <span style="color:#960050;background-color:#1e0010">…</span> } }
-</code></pre></div><p>Instead return a concrete type and let the consumer mock the producer implementation.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">producer</span>
+<span class="kd">func</span> <span class="nf">NewThinger</span><span class="p">()</span> <span class="nx">Thinger</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">defaultThinger</span><span class="p">{</span> <span class="err">…</span> <span class="p">}</span> <span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Instead return a concrete type and let the consumer mock the producer implementation.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">producer</span>
 
-<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Thinger</span> <span style="color:#66d9ef">struct</span>{ <span style="color:#960050;background-color:#1e0010">…</span> }
-<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">t</span> <span style="color:#a6e22e">Thinger</span>) <span style="color:#a6e22e">Thing</span>() <span style="color:#66d9ef">bool</span> { <span style="color:#960050;background-color:#1e0010">…</span> }
+<span class="kd">type</span> <span class="nx">Thinger</span> <span class="kd">struct</span><span class="p">{</span> <span class="err">…</span> <span class="p">}</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">t</span> <span class="nx">Thinger</span><span class="p">)</span> <span class="nf">Thing</span><span class="p">()</span> <span class="kt">bool</span> <span class="p">{</span> <span class="err">…</span> <span class="p">}</span>
 
-<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">NewThinger</span>() <span style="color:#a6e22e">Thinger</span> { <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">Thinger</span>{ <span style="color:#960050;background-color:#1e0010">…</span> } }
-</code></pre></div><h2 id="line-length">Line Length</h2>
+<span class="kd">func</span> <span class="nf">NewThinger</span><span class="p">()</span> <span class="nx">Thinger</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">Thinger</span><span class="p">{</span> <span class="err">…</span> <span class="p">}</span> <span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="line-length">Line Length</h2>
 <p>There is no rigid line length limit in Go code, but avoid uncomfortably long lines.
 Similarly, don&rsquo;t add line breaks to keep lines short when they are more readable long&ndash;for example,
 if they are repetitive.</p>
@@ -396,22 +613,54 @@ boundaries are, not to start counting lines.</p>
 <p>Also see <a href="https://github.com/golang/go/wiki/CodeReviewComments#initialisms">Initialisms</a>.</p>
 <h2 id="named-result-parameters">Named Result Parameters</h2>
 <p>Consider what it will look like in godoc.  Named result parameters like:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">n</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span>) <span style="color:#a6e22e">Parent1</span>() (<span style="color:#a6e22e">node</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span>) {}
-<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">n</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span>) <span style="color:#a6e22e">Parent2</span>() (<span style="color:#a6e22e">node</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span>, <span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>) {}
-</code></pre></div><p>will stutter in godoc; better to use:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">n</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span>) <span style="color:#a6e22e">Parent1</span>() <span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span> {}
-<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">n</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span>) <span style="color:#a6e22e">Parent2</span>() (<span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span>, <span style="color:#66d9ef">error</span>) {}
-</code></pre></div><p>On the other hand, if a function returns two or three parameters of the same type,
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="p">(</span><span class="nx">n</span> <span class="o">*</span><span class="nx">Node</span><span class="p">)</span> <span class="nf">Parent1</span><span class="p">()</span> <span class="p">(</span><span class="nx">node</span> <span class="o">*</span><span class="nx">Node</span><span class="p">)</span> <span class="p">{}</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">n</span> <span class="o">*</span><span class="nx">Node</span><span class="p">)</span> <span class="nf">Parent2</span><span class="p">()</span> <span class="p">(</span><span class="nx">node</span> <span class="o">*</span><span class="nx">Node</span><span class="p">,</span> <span class="nx">err</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>will stutter in godoc; better to use:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="p">(</span><span class="nx">n</span> <span class="o">*</span><span class="nx">Node</span><span class="p">)</span> <span class="nf">Parent1</span><span class="p">()</span> <span class="o">*</span><span class="nx">Node</span> <span class="p">{}</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">n</span> <span class="o">*</span><span class="nx">Node</span><span class="p">)</span> <span class="nf">Parent2</span><span class="p">()</span> <span class="p">(</span><span class="o">*</span><span class="nx">Node</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>On the other hand, if a function returns two or three parameters of the same type,
 or if the meaning of a result isn&rsquo;t clear from context, adding names may be useful
 in some contexts. Don&rsquo;t name result parameters just to avoid declaring a var inside
 the function; that trades off a minor implementation brevity at the cost of
 unnecessary API verbosity.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">f</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Foo</span>) <span style="color:#a6e22e">Location</span>() (<span style="color:#66d9ef">float64</span>, <span style="color:#66d9ef">float64</span>, <span style="color:#66d9ef">error</span>)
-</code></pre></div><p>is less clear than:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// Location returns f&#39;s latitude and longitude.
-</span><span style="color:#75715e">// Negative values mean south and west, respectively.
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">f</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Foo</span>) <span style="color:#a6e22e">Location</span>() (<span style="color:#a6e22e">lat</span>, <span style="color:#a6e22e">long</span> <span style="color:#66d9ef">float64</span>, <span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>)
-</code></pre></div><p>Naked returns are okay if the function is a handful of lines. Once it&rsquo;s a medium
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="p">(</span><span class="nx">f</span> <span class="o">*</span><span class="nx">Foo</span><span class="p">)</span> <span class="nf">Location</span><span class="p">()</span> <span class="p">(</span><span class="kt">float64</span><span class="p">,</span> <span class="kt">float64</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>is less clear than:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// Location returns f&#39;s latitude and longitude.
+</span><span class="c1">// Negative values mean south and west, respectively.
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">f</span> <span class="o">*</span><span class="nx">Foo</span><span class="p">)</span> <span class="nf">Location</span><span class="p">()</span> <span class="p">(</span><span class="nx">lat</span><span class="p">,</span> <span class="nx">long</span> <span class="kt">float64</span><span class="p">,</span> <span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Naked returns are okay if the function is a handful of lines. Once it&rsquo;s a medium
 sized function, be explicit with your return values. Corollary: it&rsquo;s not worth it
 to name result parameters just because it enables you to use naked returns.
 Clarity of docs is always more important than saving a line or two in your function.</p>
@@ -421,33 +670,101 @@ it in a deferred closure. That is always OK.</p>
 <p>See <a href="#named-result-parameters">Named Result Parameters</a>.</p>
 <h2 id="package-comments">Package Comments</h2>
 <p>Package comments, like all comments to be presented by godoc, must appear adjacent to the package clause, with no blank line.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// Package math provides basic constants and mathematical functions.
-</span><span style="color:#75715e"></span><span style="color:#f92672">package</span> <span style="color:#a6e22e">math</span>
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">/*
-</span><span style="color:#75715e">Package template implements data-driven templates for generating textual
-</span><span style="color:#75715e">output such as HTML.
-</span><span style="color:#75715e">....
-</span><span style="color:#75715e">*/</span>
-<span style="color:#f92672">package</span> <span style="color:#a6e22e">template</span>
-</code></pre></div><p>For &ldquo;package main&rdquo; comments, other styles of comment are fine after the binary name (and it may be capitalized if it comes first), For example, for a <code>package main</code> in the directory <code>seedgen</code> you could write:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// Binary seedgen ...
-</span><span style="color:#75715e"></span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
-</code></pre></div><p>or</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// Command seedgen ...
-</span><span style="color:#75715e"></span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
-</code></pre></div><p>or</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// Program seedgen ...
-</span><span style="color:#75715e"></span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
-</code></pre></div><p>or</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// The seedgen command ...
-</span><span style="color:#75715e"></span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
-</code></pre></div><p>or</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// The seedgen program ...
-</span><span style="color:#75715e"></span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
-</code></pre></div><p>or</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// Seedgen ..
-</span><span style="color:#75715e"></span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
-</code></pre></div><p>These are examples, and sensible variants of these are acceptable.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// Package math provides basic constants and mathematical functions.
+</span><span class="c1"></span><span class="kn">package</span> <span class="nx">math</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="cm">/*
+</span><span class="cm">Package template implements data-driven templates for generating textual
+</span><span class="cm">output such as HTML.
+</span><span class="cm">....
+</span><span class="cm">*/</span>
+<span class="kn">package</span> <span class="nx">template</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>For &ldquo;package main&rdquo; comments, other styles of comment are fine after the binary name (and it may be capitalized if it comes first), For example, for a <code>package main</code> in the directory <code>seedgen</code> you could write:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// Binary seedgen ...
+</span><span class="c1"></span><span class="kn">package</span> <span class="nx">main</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>or</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// Command seedgen ...
+</span><span class="c1"></span><span class="kn">package</span> <span class="nx">main</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>or</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// Program seedgen ...
+</span><span class="c1"></span><span class="kn">package</span> <span class="nx">main</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>or</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// The seedgen command ...
+</span><span class="c1"></span><span class="kn">package</span> <span class="nx">main</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>or</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// The seedgen program ...
+</span><span class="c1"></span><span class="kn">package</span> <span class="nx">main</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>or</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// Seedgen ..
+</span><span class="c1"></span><span class="kn">package</span> <span class="nx">main</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>These are examples, and sensible variants of these are acceptable.</p>
 <p>Note that starting the sentence with a lower-case word is not among the
 acceptable options for package comments, as these are publicly-visible and
 should be written in proper English, including capitalizing the first word
@@ -485,15 +802,32 @@ Avoid meaningless package names like util, common, misc, api, types, and interfa
 <p>If callers need more concurrency, they can add it easily by calling the function from a separate goroutine. But it is quite difficult - sometimes impossible - to remove unnecessary concurrency at the caller side.</p>
 <h2 id="useful-test-failures">Useful Test Failures</h2>
 <p>Tests should fail with helpful messages saying what was wrong, with what inputs, what was actually got, and what was expected.  It may be tempting to write a bunch of assertFoo helpers, but be sure your helpers produce useful error messages.  Assume that the person debugging your failing test is not you, and is not your team.  A typical Go test fails like:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">got</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">tt</span>.<span style="color:#a6e22e">want</span> {
-	<span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;Foo(%q) = %d; want %d&#34;</span>, <span style="color:#a6e22e">tt</span>.<span style="color:#a6e22e">in</span>, <span style="color:#a6e22e">got</span>, <span style="color:#a6e22e">tt</span>.<span style="color:#a6e22e">want</span>) <span style="color:#75715e">// or Fatalf, if test can&#39;t test anything more past this point
-</span><span style="color:#75715e"></span>}
-</code></pre></div><p>Note that the order here is actual != expected, and the message uses that order too. Some test frameworks encourage writing these backwards: 0 != x, &ldquo;expected 0, got x&rdquo;, and so on. Go does not.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="k">if</span> <span class="nx">got</span> <span class="o">!=</span> <span class="nx">tt</span><span class="p">.</span><span class="nx">want</span> <span class="p">{</span>
+	<span class="nx">t</span><span class="p">.</span><span class="nf">Errorf</span><span class="p">(</span><span class="s">&#34;Foo(%q) = %d; want %d&#34;</span><span class="p">,</span> <span class="nx">tt</span><span class="p">.</span><span class="nx">in</span><span class="p">,</span> <span class="nx">got</span><span class="p">,</span> <span class="nx">tt</span><span class="p">.</span><span class="nx">want</span><span class="p">)</span> <span class="c1">// or Fatalf, if test can&#39;t test anything more past this point
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Note that the order here is actual != expected, and the message uses that order too. Some test frameworks encourage writing these backwards: 0 != x, &ldquo;expected 0, got x&rdquo;, and so on. Go does not.</p>
 <p>If that seems like a lot of typing, you may want to write a [[table-driven test|TableDrivenTests]].</p>
 <p>Another common technique to disambiguate failing tests when using a test helper with different input is to wrap each caller with a different TestFoo function, so the test fails with that name:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">TestSingleValue</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>) { <span style="color:#a6e22e">testHelper</span>(<span style="color:#a6e22e">t</span>, []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">80</span>}) }
-<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">TestNoValues</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>)    { <span style="color:#a6e22e">testHelper</span>(<span style="color:#a6e22e">t</span>, []<span style="color:#66d9ef">int</span>{}) }
-</code></pre></div><p>In any case, the onus is on you to fail with a helpful message to whoever&rsquo;s debugging your code in the future.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">TestSingleValue</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span> <span class="nf">testHelper</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">80</span><span class="p">})</span> <span class="p">}</span>
+<span class="kd">func</span> <span class="nf">TestNoValues</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span>    <span class="p">{</span> <span class="nf">testHelper</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{})</span> <span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>In any case, the onus is on you to fail with a helpful message to whoever&rsquo;s debugging your code in the future.</p>
 <h2 id="variable-names">Variable Names</h2>
 <p>变量名称应该尽可能的短。尤其是只在小范围使用短局部变量，例如 <code>c</code> 替换 <code>lineCount</code>。 <code>i</code> 替换 <code>sliceIndex</code></p>
 <p>基本规则：使用变量名的地方距离声明它的地方越远，变量名描述的越具体。
@@ -526,7 +860,7 @@ Avoid meaningless package names like util, common, misc, api, types, and interfa
     
     <input type="text" name="q" maxlength="255" placeholder="搜索...">
     
-    <input type="hidden" name="sites" value="https://itsfinn.github.io/">
+    <input type="hidden" name="sites" value="https://itsfinn.cc/">
     
     <input type="hidden" name="kp" value="-2">
     
@@ -613,7 +947,7 @@ Avoid meaningless package names like util, common, misc, api, types, and interfa
 </div>
 <footer id="footer">
     <div class="container">
-      &copy; 2021 <a rel="nofollow" href="https://itsfinn.github.io/">itsfinn&#39;s blog.</a>.
+      &copy; 2021 <a rel="nofollow" href="https://itsfinn.cc/">itsfinn&#39;s blog.</a>.
         Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io">Hugo</a> &amp; <a rel="nofollow noreferer noopener" href="https://github.com/JokerQyou/maupassant-hugo">maupassant theme</a>.
     </div>
 </footer>
