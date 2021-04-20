@@ -84,11 +84,11 @@
         <li><a href="#contexts">Contexts</a></li>
         <li><a href="#复制">复制</a></li>
         <li><a href="#crypto-rand">Crypto Rand</a></li>
-        <li><a href="#declaring-empty-slices">Declaring Empty Slices</a></li>
-        <li><a href="#doc-comments">Doc Comments</a></li>
-        <li><a href="#dont-panic">Don&rsquo;t Panic</a></li>
-        <li><a href="#error-strings">Error Strings</a></li>
-        <li><a href="#examples">Examples</a></li>
+        <li><a href="#声明空切片">声明空切片</a></li>
+        <li><a href="#文档注释">文档注释</a></li>
+        <li><a href="#不要使用panic">不要使用panic</a></li>
+        <li><a href="#错误字符串">错误字符串</a></li>
+        <li><a href="#例子">例子</a></li>
         <li><a href="#goroutine-lifetimes">Goroutine Lifetimes</a></li>
         <li><a href="#handle-errors">Handle Errors</a></li>
         <li><a href="#imports">Imports</a></li>
@@ -122,11 +122,11 @@
 <li><a href="#contexts">Contexts</a></li>
 <li><a href="#%E5%A4%8D%E5%88%B6">复制</a></li>
 <li><a href="#crypto-rand">Crypto Rand</a></li>
-<li><a href="#declaring-empty-slices">声明空数组</a></li>
-<li><a href="#doc-comments">文档注释</a></li>
-<li><a href="#dont-panic">不要使用panic</a></li>
-<li><a href="#error-strings">Error Strings</a></li>
-<li><a href="#examples">Examples</a></li>
+<li><a href="#%E5%A3%B0%E6%98%8E%E7%A9%BA%E5%88%87%E7%89%87">声明空数组</a></li>
+<li><a href="#%E6%96%87%E6%A1%A3%E6%B3%A8%E9%87%8A">文档注释</a></li>
+<li><a href="#%E4%B8%8D%E8%A6%81%E4%BD%BF%E7%94%A8panic">不要使用panic</a></li>
+<li><a href="#%E9%94%99%E8%AF%AF%E5%AD%97%E7%AC%A6%E4%B8%B2">错误字符串</a></li>
+<li><a href="#%E4%BE%8B%E5%AD%90">例子</a></li>
 <li><a href="#goroutine-lifetimes">Goroutine Lifetimes</a></li>
 <li><a href="#handle-errors">Handle Errors</a></li>
 <li><a href="#imports">Imports</a></li>
@@ -237,8 +237,8 @@ in the receiver, in globals, or, if it truly belongs there, in a Context value.<
 </span><span class="c1"></span><span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><h2 id="declaring-empty-slices">Declaring Empty Slices</h2>
-<p>当你创建空数组时推荐使用：</p>
+</div><h2 id="声明空切片">声明空切片</h2>
+<p>当你创建空切片时推荐使用：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -262,13 +262,40 @@ JSON对象但时候（一个<code>nil</code>切片被编码成<code>null</code>�
 <p>在设计接口时，避免区分nil片和非nil、零长度的片，因为这可能会导致微妙的编程错误。</p>
 <p>When designing interfaces, avoid making a distinction between a nil slice and a non-nil, zero-length slice, as this can lead to subtle programming errors.</p>
 <p>Go中关于nil的更多讨论可以看一下 Francesc Campoy 的视频 <a href="https://www.youtube.com/watch?v=ynoY2xz-F8s">Understanding Nil</a>.</p>
-<h2 id="doc-comments">Doc Comments</h2>
+<h2 id="文档注释">文档注释</h2>
 <p>所有顶级的、可导出的名称，都应该有文档注释，重要的未导出类型或函数声明也应该如此。有关注释约定的更多信息，请参见https://golang.org/doc/effective_go.html#commentary。</p>
-<h2 id="dont-panic">Don&rsquo;t Panic</h2>
+<h2 id="不要使用panic">不要使用panic</h2>
 <p>参见 <a href="https://golang.org/doc/effective_go.html#errors">https://golang.org/doc/effective_go.html#errors</a>. 对于正常的错误处理，不要使用panic。使用错误和多个返回值。</p>
-<h2 id="error-strings">Error Strings</h2>
-<p>错误字符串不应该大写(除非以专有名词或首字母缩写开头)，也不应该以标点符号结尾，因为它们通常在其他上下文后面打印。也就是说，使用 <code>fmt.Errorf(&quot;something bad&quot;)</code> 而不是<code>fmt.Errorf(&quot;Something bad.&quot;)</code>，这样 <code>log.Printf(&quot;Reading %s: %v&quot;, filename, err)</code> 的输出才不会出现大写字母。不过这不适用于日志记录，日志记录是隐式面向行的，不会在其他消息中合并。</p>
-<h2 id="examples">Examples</h2>
+<h2 id="错误字符串">错误字符串</h2>
+<p>错误字符串不应该大写(除非以专有名词或首字母缩写开头)，也不应该以标点符号结尾，因为它们通常在其他上下文后面打印。也就是说，使用</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">fmt</span><span class="p">.</span><span class="nf">Errorf</span><span class="p">(</span><span class="s">&#34;something bad&#34;</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>而不是</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">fmt</span><span class="p">.</span><span class="nf">Errorf</span><span class="p">(</span><span class="s">&#34;Something bad.&#34;</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这样</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;Reading %s: %v&#34;</span><span class="p">,</span> <span class="nx">filename</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>的输出才不会出现大写字母。不过这不适用于日志记录，日志记录是隐式面向行的，不会在其他消息中合并。</p>
+<h2 id="例子">例子</h2>
 <p>添加新的 package 时，同时添加一些使用示例，这些示例应该是可运行的，或者一个可以演示的，包含了完整调用过程的测试用例。更多内容参见 <a href="https://blog.golang.org/examples">testable Example() functions</a>.</p>
 <h2 id="goroutine-lifetimes">Goroutine Lifetimes</h2>
 <p>When you spawn goroutines, make it clear when - or whether - they exit.</p>
