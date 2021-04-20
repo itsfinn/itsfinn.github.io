@@ -13,7 +13,7 @@
       <pubDate>Sun, 18 Apr 2021 13:04:21 +0800</pubDate>
       
       <guid>https://itsfinn.cc/post/go-code-review-comments/</guid>
-      <description>原文地址：https://github.com/golang/go/wiki/CodeReviewComments Gofmt 声明的注释应该是句子 Contexts 复制 Crypto Rand Declaring Empty Slices Doc Comments Don&amp;rsquo;t Panic Error Strings Examples Goroutine Lifetimes Handle Errors Imports Import Blank</description>
+      <description>原文地址：https://github.com/golang/go/wiki/CodeReviewComments Gofmt 声明的注释应该是句子 Contexts 复制 Crypto Rand 声明空数组 文档注释 不要使用pani</description>
     </item>
     
     <item>

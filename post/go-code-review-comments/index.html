@@ -122,9 +122,9 @@
 <li><a href="#contexts">Contexts</a></li>
 <li><a href="#%E5%A4%8D%E5%88%B6">复制</a></li>
 <li><a href="#crypto-rand">Crypto Rand</a></li>
-<li><a href="#declaring-empty-slices">Declaring Empty Slices</a></li>
-<li><a href="#doc-comments">Doc Comments</a></li>
-<li><a href="#dont-panic">Don&rsquo;t Panic</a></li>
+<li><a href="#declaring-empty-slices">声明空数组</a></li>
+<li><a href="#doc-comments">文档注释</a></li>
+<li><a href="#dont-panic">不要使用panic</a></li>
 <li><a href="#error-strings">Error Strings</a></li>
 <li><a href="#examples">Examples</a></li>
 <li><a href="#goroutine-lifetimes">Goroutine Lifetimes</a></li>
@@ -171,12 +171,8 @@
 </code></pre></td></tr></table>
 </div>
 </div><h2 id="contexts">Contexts</h2>
-<p>Values of the context.Context type carry security credentials,
-tracing information, deadlines, and cancellation signals across API
-and process boundaries. Go programs pass Contexts explicitly along
-the entire function call chain from incoming RPCs and HTTP requests
-to outgoing requests.</p>
-<p>Most functions that use a Context should accept it as their first parameter:</p>
+<p><code>context.Context</code> 类型的 Value 可以携带跨越API或处理逻辑边界的安全凭据，追踪信息，截止日期或取消信号。在 Go 程序里，Context 显式地在整个函数调用链中传递，从接受 RPC 或者 HTTP 调用，一直到对外的 RPC 或者 HTTP 调用。</p>
+<p>大多数使用Context的函数，都应该把它作为第一个参数:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -193,20 +189,14 @@ directly if you have a good reason why the alternative is a mistake.</p>
 to each method on that type that needs to pass it along. The one exception
 is for methods whose signature must match an interface in the standard library
 or in a third party library.</p>
-<p>Don&rsquo;t create custom Context types or use interfaces other than Context in
-function signatures.</p>
+<p>Don&rsquo;t create custom Context types or use interfaces other than Context in function signatures.</p>
 <p>If you have application data to pass around, put it in a parameter,
 in the receiver, in globals, or, if it truly belongs there, in a Context value.</p>
-<p>Contexts are immutable, so it&rsquo;s fine to pass the same ctx to multiple
-calls that share the same deadline, cancellation signal, credentials,
-parent trace, etc.</p>
+<p>上下文是不可变的，所以可以放心把同一个ctx传递给多个调用，如果这些调用共享截止时间，取消信号，凭证，追踪信息等。</p>
 <h2 id="复制">复制</h2>
 <p>为了避免意外的别名，在从另一个 package 复制结构时，要尤其小心。 例如，bytes.Buffer 类型包含一个 <code>[]byte</code> 切片。如果你复制一个 <code>Buffer</code>， 副本中的切片只是原始数组的别名，从而导致后续方法调用可能会有意外的效果。 一般来说，如果类型 <code>T</code> 的方法，关联的是它的指针类型 <code>*T</code> ，那么不要复制 <code>T</code> 的值。</p>
 <h2 id="crypto-rand">Crypto Rand</h2>
-<p>Do not use package <code>math/rand</code> to generate keys, even throwaway ones.
-Unseeded, the generator is completely predictable. Seeded with <code>time.Nanoseconds()</code>,
-there are just a few bits of entropy. Instead, use <code>crypto/rand</code>&rsquo;s Reader,
-and if you need text, print to hexadecimal or base64:</p>
+<p>不要使用 <code>math/rand</code> 来生成密钥，即使是一次性的密钥。 在没有种子的情况下，生成的密钥是完全可以预测的。使用 <code>time.Nanoseconds()</code> 作为种子，也只带来少量的熵。你应该使用 <code>crypto/rand</code> 的 Reader， 如果需要的是文本，可以打印为十六进制或base64:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
@@ -273,15 +263,13 @@ JSON对象但时候（一个<code>nil</code>切片被编码成<code>null</code>�
 <p>When designing interfaces, avoid making a distinction between a nil slice and a non-nil, zero-length slice, as this can lead to subtle programming errors.</p>
 <p>Go中关于nil的更多讨论可以看一下 Francesc Campoy 的视频 <a href="https://www.youtube.com/watch?v=ynoY2xz-F8s">Understanding Nil</a>.</p>
 <h2 id="doc-comments">Doc Comments</h2>
-<p>All top-level, exported names should have doc comments, as should non-trivial unexported type or function declarations. See <a href="https://golang.org/doc/effective_go.html#commentary">https://golang.org/doc/effective_go.html#commentary</a> for more information about commentary conventions.</p>
+<p>所有顶级的、可导出的名称，都应该有文档注释，重要的未导出类型或函数声明也应该如此。有关注释约定的更多信息，请参见https://golang.org/doc/effective_go.html#commentary。</p>
 <h2 id="dont-panic">Don&rsquo;t Panic</h2>
-<p>See <a href="https://golang.org/doc/effective_go.html#errors">https://golang.org/doc/effective_go.html#errors</a>. Don&rsquo;t use panic for normal error handling. Use error and multiple return values.</p>
+<p>参见 <a href="https://golang.org/doc/effective_go.html#errors">https://golang.org/doc/effective_go.html#errors</a>. 对于正常的错误处理，不要使用panic。使用错误和多个返回值。</p>
 <h2 id="error-strings">Error Strings</h2>
-<p>Error strings should not be capitalized (unless beginning with proper nouns or acronyms) or end with punctuation, since they are usually printed following other context. That is, use <code>fmt.Errorf(&quot;something bad&quot;)</code> not <code>fmt.Errorf(&quot;Something bad&quot;)</code>, so that <code>log.Printf(&quot;Reading %s: %v&quot;, filename, err)</code> formats without a spurious capital letter mid-message. This does not apply to logging, which is implicitly line-oriented and not combined inside other messages.</p>
+<p>错误字符串不应该大写(除非以专有名词或首字母缩写开头)，也不应该以标点符号结尾，因为它们通常在其他上下文后面打印。也就是说，使用 <code>fmt.Errorf(&quot;something bad&quot;)</code> 而不是<code>fmt.Errorf(&quot;Something bad.&quot;)</code>，这样 <code>log.Printf(&quot;Reading %s: %v&quot;, filename, err)</code> 的输出才不会出现大写字母。不过这不适用于日志记录，日志记录是隐式面向行的，不会在其他消息中合并。</p>
 <h2 id="examples">Examples</h2>
-<p>When adding a new package, include examples of intended usage: a runnable Example,
-or a simple test demonstrating a complete call sequence.</p>
-<p>Read more about <a href="https://blog.golang.org/examples">testable Example() functions</a>.</p>
+<p>添加新的 package 时，同时添加一些使用示例，这些示例应该是可运行的，或者一个可以演示的，包含了完整调用过程的测试用例。更多内容参见 <a href="https://blog.golang.org/examples">testable Example() functions</a>.</p>
 <h2 id="goroutine-lifetimes">Goroutine Lifetimes</h2>
 <p>When you spawn goroutines, make it clear when - or whether - they exit.</p>
 <p>Goroutines can leak by blocking on channel sends or receives: the garbage collector
