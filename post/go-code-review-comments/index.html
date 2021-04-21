@@ -89,11 +89,11 @@
         <li><a href="#不要使用panic">不要使用panic</a></li>
         <li><a href="#错误字符串">错误字符串</a></li>
         <li><a href="#例子">例子</a></li>
-        <li><a href="#goroutine-lifetimes">Goroutine Lifetimes</a></li>
-        <li><a href="#handle-errors">Handle Errors</a></li>
-        <li><a href="#imports">Imports</a></li>
-        <li><a href="#import-blank">Import Blank</a></li>
-        <li><a href="#import-dot">Import Dot</a></li>
+        <li><a href="#goroutine生命周期">Goroutine生命周期</a></li>
+        <li><a href="#处理错误">处理错误</a></li>
+        <li><a href="#导入">导入</a></li>
+        <li><a href="#作为空的导入">作为空的导入</a></li>
+        <li><a href="#作为句点的导入">作为句点的导入</a></li>
         <li><a href="#in-band-errors">In-Band Errors</a></li>
         <li><a href="#indent-error-flow">Indent Error Flow</a></li>
         <li><a href="#initialisms">Initialisms</a></li>
@@ -115,7 +115,8 @@
   </ul>
 </nav>
                         </aside><div class="post-content">
-                            <p>原文地址：https://github.com/golang/go/wiki/CodeReviewComments</p>
+                            <p>@[TOC]</p>
+<p>原文地址：https://github.com/golang/go/wiki/CodeReviewComments</p>
 <ul>
 <li><a href="#gofmt">Gofmt</a></li>
 <li><a href="#%E5%A3%B0%E6%98%8E%E7%9A%84%E6%B3%A8%E9%87%8A%E5%BA%94%E8%AF%A5%E6%98%AF%E5%8F%A5%E5%AD%90">声明的注释应该是句子</a></li>
@@ -127,11 +128,11 @@
 <li><a href="#%E4%B8%8D%E8%A6%81%E4%BD%BF%E7%94%A8panic">不要使用panic</a></li>
 <li><a href="#%E9%94%99%E8%AF%AF%E5%AD%97%E7%AC%A6%E4%B8%B2">错误字符串</a></li>
 <li><a href="#%E4%BE%8B%E5%AD%90">例子</a></li>
-<li><a href="#goroutine-lifetimes">Goroutine Lifetimes</a></li>
-<li><a href="#handle-errors">Handle Errors</a></li>
-<li><a href="#imports">Imports</a></li>
-<li><a href="#import-blank">Import Blank</a></li>
-<li><a href="#import-dot">Import Dot</a></li>
+<li><a href="#Goroutine%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F">Goroutine生命周期</a></li>
+<li><a href="#%E5%A4%84%E7%90%86%E9%94%99%E8%AF%AF">处理错误</a></li>
+<li><a href="#%E5%AF%BC%E5%85%A5">导入</a></li>
+<li><a href="#%E4%BD%9C%E4%B8%BA%E7%A9%BA%E7%9A%84%E5%AF%BC%E5%85%A5">作为空的导入</a></li>
+<li><a href="#%E4%BD%9C%E4%B8%BA%E5%8F%A5%E7%82%B9%E7%9A%84%E5%AF%BC%E5%85%A5">作为句点的导入</a></li>
 <li><a href="#in-band-errors">In-Band Errors</a></li>
 <li><a href="#indent-error-flow">Indent Error Flow</a></li>
 <li><a href="#initialisms">Initialisms</a></li>
@@ -297,25 +298,18 @@ JSON对象但时候（一个<code>nil</code>切片被编码成<code>null</code>�
 </div><p>的输出才不会出现大写字母。不过这不适用于日志记录，日志记录是隐式面向行的，不会在其他消息中合并。</p>
 <h2 id="例子">例子</h2>
 <p>添加新的 package 时，同时添加一些使用示例，这些示例应该是可运行的，或者一个可以演示的，包含了完整调用过程的测试用例。更多内容参见 <a href="https://blog.golang.org/examples">testable Example() functions</a>.</p>
-<h2 id="goroutine-lifetimes">Goroutine Lifetimes</h2>
-<p>When you spawn goroutines, make it clear when - or whether - they exit.</p>
+<h2 id="goroutine生命周期">Goroutine生命周期</h2>
+<p>当你起一个 goroutine 时，你要清楚它是否需要退出，或者什么时候退出。</p>
 <p>Goroutines can leak by blocking on channel sends or receives: the garbage collector
 will not terminate a goroutine even if the channels it is blocked on are unreachable.</p>
 <p>Even when goroutines do not leak, leaving them in-flight when they are no longer
-needed can cause other subtle and hard-to-diagnose problems. Sends on closed channels
-panic. Modifying still-in-use inputs &ldquo;after the result isn&rsquo;t needed&rdquo; can still lead
-to data races. And leaving goroutines in-flight for arbitrarily long can lead to
-unpredictable memory usage.</p>
-<p>Try to keep concurrent code simple enough that goroutine lifetimes are obvious.
-If that just isn&rsquo;t feasible, document when and why the goroutines exit.</p>
-<h2 id="handle-errors">Handle Errors</h2>
-<p>See <a href="https://golang.org/doc/effective_go.html#errors">https://golang.org/doc/effective_go.html#errors</a>. Do not discard errors using <code>_</code> variables. If a function returns an error, check it to make sure the function succeeded. Handle the error, return it, or, in truly exceptional situations, panic.</p>
-<h2 id="imports">Imports</h2>
-<p>Avoid renaming imports except to avoid a name collision; good package names
-should not require renaming. In the event of collision, prefer to rename the most
-local or project-specific import.</p>
-<p>Imports are organized in groups, with blank lines between them.
-The standard library packages are always in the first group.</p>
+needed can cause other subtle and hard-to-diagnose problems. Sends on closed channels panic. Modifying still-in-use inputs &ldquo;after the result isn&rsquo;t needed&rdquo; can still lead to data races. And leaving goroutines in-flight for arbitrarily long can lead to unpredictable memory usage.</p>
+<p>尽量保持并发代码足够简单，这样goroutine的生存期就会很明显。如果这是不可行的，请写好文档，记录goroutines 何时退出以及为什么退出。</p>
+<h2 id="处理错误">处理错误</h2>
+<p>参见 <a href="https://golang.org/doc/effective_go.html#errors">https://golang.org/doc/effective_go.html#errors</a>. 不要使用 <code>_</code> 变量丢弃错误。如果函数返回一个错误，明确地检查错误，确保函数执行成功。要么处理错误，要么向上一级返回它，又或者，确定是一个无法处理的异常的话，选择 <code>panic</code>。</p>
+<h2 id="导入">导入</h2>
+<p>不要重命名导入的包名，除非为了避免包名冲突；好的包名不应该需要重命名。包名冲突时，优先重命名<code>最局部的</code>包名，或者项目特有的导入包。</p>
+<p>多行导入使用空行对他们分组。标准库的包总是放在第一个组。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
@@ -348,12 +342,11 @@ The standard library packages are always in the first group.</p>
 <span class="p">)</span>
 </code></pre></td></tr></table>
 </div>
-</div><p><!-- raw HTML omitted -->goimports<!-- raw HTML omitted --> will do this for you.</p>
-<h2 id="import-blank">Import Blank</h2>
-<p>Packages that are imported only for their side effects (using the syntax <code>import _ &quot;pkg&quot;</code>) should only be imported in the main package of a program, or in tests
-that require them.</p>
-<h2 id="import-dot">Import Dot</h2>
-<p>The import . form can be useful in tests that, due to circular dependencies, cannot be made part of the package being tested:</p>
+</div><p><!-- raw HTML omitted -->goimports<!-- raw HTML omitted --> 可以自动为你做好分组排序。</p>
+<h2 id="作为空的导入">作为空的导入</h2>
+<p>仅因其副作用而导入的包(使用语法 <code>import _ &quot;pkg&quot;</code> )应仅在程序的 <code>main</code> 包或测试包导入。</p>
+<h2 id="作为句点的导入">作为句点的导入</h2>
+<p>在写测试代码的时候，由于循环依赖的问题，导致包不能导入，这是导入成句点这种形式可能会有用：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -372,7 +365,7 @@ that require them.</p>
 <span class="p">)</span>
 </code></pre></td></tr></table>
 </div>
-</div><p>In this case, the test file cannot be in package foo because it uses bar/testutil, which imports foo.  So we use the &lsquo;import .&rsquo; form to let the file pretend to be part of package foo even though it is not.  Except for this one case, do not use import . in your programs.  It makes the programs much harder to read because it is unclear whether a name like Quux is a top-level identifier in the current package or in an imported package.</p>
+</div><p>在这种情况下，这个测试文件不能在 foo 包中，因为它导入了 <code>bar/testutil</code>，而 <code>bar/testutil</code> 又导入了 foo。所以我们使用 <code>import .</code> 的形式，让文件假装是 foo 包的一部分，即使它不是。除了这一种情况，不要在你的程序中使用 <code>import .</code>。它使程序更难阅读，因为不清楚像 <code>Quux</code> 这样的名称是当前包中的顶级标识符还是导入包中的顶级标识符。</p>
 <h2 id="in-band-errors">In-Band Errors</h2>
 <p>In C and similar languages, it&rsquo;s common for functions to return values like -1
 or null to signal errors or missing results:</p>
