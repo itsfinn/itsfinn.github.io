@@ -94,8 +94,8 @@
         <li><a href="#导入">导入</a></li>
         <li><a href="#作为空的导入">作为空的导入</a></li>
         <li><a href="#作为句点的导入">作为句点的导入</a></li>
-        <li><a href="#in-band-errors">In-Band Errors</a></li>
-        <li><a href="#indent-error-flow">Indent Error Flow</a></li>
+        <li><a href="#带内错误">带内错误</a></li>
+        <li><a href="#缩进错误处理流">缩进错误处理流</a></li>
         <li><a href="#initialisms">Initialisms</a></li>
         <li><a href="#interfaces">Interfaces</a></li>
         <li><a href="#line-length">Line Length</a></li>
@@ -132,8 +132,8 @@
 <li><a href="#%E5%AF%BC%E5%85%A5">导入</a></li>
 <li><a href="#%E4%BD%9C%E4%B8%BA%E7%A9%BA%E7%9A%84%E5%AF%BC%E5%85%A5">作为空的导入</a></li>
 <li><a href="#%E4%BD%9C%E4%B8%BA%E5%8F%A5%E7%82%B9%E7%9A%84%E5%AF%BC%E5%85%A5">作为句点的导入</a></li>
-<li><a href="#in-band-errors">In-Band Errors</a></li>
-<li><a href="#indent-error-flow">Indent Error Flow</a></li>
+<li><a href="#%E5%B8%A6%E5%86%85%E9%94%99%E8%AF%AF">带内错误</a></li>
+<li><a href="#%E7%BC%A9%E8%BF%9B%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%E6%B5%81">缩进错误处理流</a></li>
 <li><a href="#initialisms">Initialisms</a></li>
 <li><a href="#interfaces">Interfaces</a></li>
 <li><a href="#line-length">Line Length</a></li>
@@ -365,9 +365,8 @@ needed can cause other subtle and hard-to-diagnose problems. Sends on closed cha
 </code></pre></td></tr></table>
 </div>
 </div><p>在这种情况下，这个测试文件不能在 foo 包中，因为它导入了 <code>bar/testutil</code>，而 <code>bar/testutil</code> 又导入了 foo。所以我们使用 <code>import .</code> 的形式，让文件假装是 foo 包的一部分，即使它不是。除了这一种情况，不要在你的程序中使用 <code>import .</code>。它使程序更难阅读，因为不清楚像 <code>Quux</code> 这样的名称是当前包中的顶级标识符还是导入包中的顶级标识符。</p>
-<h2 id="in-band-errors">In-Band Errors</h2>
-<p>In C and similar languages, it&rsquo;s common for functions to return values like -1
-or null to signal errors or missing results:</p>
+<h2 id="带内错误">带内错误</h2>
+<p>在C和其他类似语言中，经常让函数返回 -1 表示信号错误，或者返回 null 表示没有结果：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -377,15 +376,15 @@ or null to signal errors or missing results:</p>
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// Lookup returns the value for key or &#34;&#34; if there is no mapping for key.
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// Lookup 返回key对应的value，如果没有的话则返回 &#34;&#34;
 </span><span class="c1"></span><span class="kd">func</span> <span class="nf">Lookup</span><span class="p">(</span><span class="nx">key</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">string</span>
 
 <span class="c1">// Failing to check a for an in-band error value can lead to bugs:
 </span><span class="c1"></span><span class="nf">Parse</span><span class="p">(</span><span class="nf">Lookup</span><span class="p">(</span><span class="nx">key</span><span class="p">))</span>  <span class="c1">// returns &#34;parse failure for value&#34; instead of &#34;no value for key&#34;
 </span></code></pre></td></tr></table>
 </div>
-</div><p>Go&rsquo;s support for multiple return values provides a better solution.
-Instead of requiring clients to check for an in-band error value, a function should return
+</div><p>Go 的函数可以返回多个值，这是一个更好的方案。</p>
+<p>Instead of requiring clients to check for an in-band error value, a function should return
 an additional value to indicate whether its other return values are valid. This return
 value may be an error, or a boolean when no explanation is needed.
 It should be the final return value.</p>
@@ -399,16 +398,17 @@ It should be the final return value.</p>
 </span><span class="c1"></span><span class="kd">func</span> <span class="nf">Lookup</span><span class="p">(</span><span class="nx">key</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="nx">value</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">ok</span> <span class="kt">bool</span><span class="p">)</span>
 </code></pre></td></tr></table>
 </div>
-</div><p>This prevents the caller from using the result incorrectly:</p>
+</div><p>这防止了调用者错误地使用调用结果：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="nf">Parse</span><span class="p">(</span><span class="nf">Lookup</span><span class="p">(</span><span class="nx">key</span><span class="p">))</span>  <span class="c1">// compile-time error
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nf">Parse</span><span class="p">(</span><span class="nf">Lookup</span><span class="p">(</span><span class="nx">key</span><span class="p">))</span>  <span class="c1">// 编译错误
 </span></code></pre></td></tr></table>
 </div>
-</div><p>And encourages more robust and readable code:</p>
+</div><p>并鼓励更健壮和可读的代码:
+And encourages more robust and readable code:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -425,17 +425,12 @@ It should be the final return value.</p>
 <span class="k">return</span> <span class="nf">Parse</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span>
 </code></pre></td></tr></table>
 </div>
-</div><p>This rule applies to exported functions but is also useful
-for unexported functions.</p>
-<p>Return values like nil, &ldquo;&rdquo;, 0, and -1 are fine when they are
-valid results for a function, that is, when the caller need not
-handle them differently from other values.</p>
-<p>Some standard library functions, like those in package &ldquo;strings&rdquo;,
-return in-band error values. This greatly simplifies string-manipulation
-code at the cost of requiring more diligence from the programmer.
-In general, Go code should return additional values for errors.</p>
-<h2 id="indent-error-flow">Indent Error Flow</h2>
-<p>Try to keep the normal code path at a minimal indentation, and indent the error handling, dealing with it first. This improves the readability of the code by permitting visually scanning the normal path quickly. For instance, don&rsquo;t write:</p>
+</div><p>该规则适用于可导出的函数，对于不可到处的函数，也是有用的。</p>
+<p>如果 nil， &ldquo;&quot;， 0 或者 -1 是有意义的返回结果，也就是说，函数的调用者不需要将其与其他值区别处理，那么函数直接返回这些值也是可以的。</p>
+<p>Go 的函数标准库里，比如 <code>strings</code> 包，里面就有一些函数，直接返回了带内错误。 This greatly simplifies string-manipulation
+code at the cost of requiring more diligence from the programmer.通常，Go代码应该返回额外的错误值。</p>
+<h2 id="缩进错误处理流">缩进错误处理流</h2>
+<p>尽量将常规代码路径缩进到最小，并缩进错误处理，先处理它。通过允许可视化地快速扫描正常路径，提高了代码的可读性。例如，不要这样写:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -452,7 +447,7 @@ In general, Go code should return additional values for errors.</p>
 </span><span class="c1"></span><span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><p>Instead, write:</p>
+</div><p>而应该写成:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -469,7 +464,7 @@ In general, Go code should return additional values for errors.</p>
 <span class="c1">// normal code
 </span></code></pre></td></tr></table>
 </div>
-</div><p>If the <code>if</code> statement has an initialization statement, such as:</p>
+</div><p>如果' If &lsquo;语句有一个初始化语句，例如:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -488,7 +483,7 @@ In general, Go code should return additional values for errors.</p>
 </span><span class="c1"></span><span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><p>then this may require moving the short variable declaration to its own line:</p>
+</div><p>这可能需要将短变量声明移到单独的行中，这样缩进的错误处理代码后面的正常代码逻辑才能使用变量 <code>x</code>:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
