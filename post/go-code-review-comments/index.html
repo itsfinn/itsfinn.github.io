@@ -94,7 +94,7 @@
     <li><a href="#作为句点的导入">作为句点的导入</a></li>
     <li><a href="#带内错误">带内错误</a></li>
     <li><a href="#缩进错误处理流">缩进错误处理流</a></li>
-    <li><a href="#initialisms">Initialisms</a></li>
+    <li><a href="#首字母缩写">首字母缩写</a></li>
     <li><a href="#interfaces">Interfaces</a></li>
     <li><a href="#line-length">Line Length</a></li>
     <li><a href="#混合大小写驼峰">混合大小写(驼峰)</a></li>
@@ -105,7 +105,7 @@
     <li><a href="#pass-values">Pass Values</a></li>
     <li><a href="#receiver-names">Receiver Names</a></li>
     <li><a href="#receiver-type">Receiver Type</a></li>
-    <li><a href="#synchronous-functions">Synchronous Functions</a></li>
+    <li><a href="#同步函数">同步函数</a></li>
     <li><a href="#有意义的测试错误信息">有意义的测试错误信息</a></li>
     <li><a href="#变量名">变量名</a></li>
   </ol>
@@ -130,7 +130,7 @@
 <li><a href="#%E4%BD%9C%E4%B8%BA%E5%8F%A5%E7%82%B9%E7%9A%84%E5%AF%BC%E5%85%A5">作为句点的导入</a></li>
 <li><a href="#%E5%B8%A6%E5%86%85%E9%94%99%E8%AF%AF">带内错误</a></li>
 <li><a href="#%E7%BC%A9%E8%BF%9B%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%E6%B5%81">缩进错误处理流</a></li>
-<li><a href="#initialisms">Initialisms</a></li>
+<li><a href="#%E9%A6%96%E5%AD%97%E6%AF%8D%E7%BC%A9%E5%86%99">首字母缩写</a></li>
 <li><a href="#interfaces">Interfaces</a></li>
 <li><a href="#line-length">Line Length</a></li>
 <li><a href="#%E6%B7%B7%E5%90%88%E5%A4%A7%E5%B0%8F%E5%86%99(%E9%A9%BC%E5%B3%B0)">混合大小写(驼峰)</a></li>
@@ -498,9 +498,9 @@ code at the cost of requiring more diligence from the programmer.通常，Go代�
 <span class="c1">// use x
 </span></code></pre></td></tr></table>
 </div>
-</div><h2 id="initialisms">Initialisms</h2>
-<p>Words in names that are initialisms or acronyms (e.g. &ldquo;URL&rdquo; or &ldquo;NATO&rdquo;) have a consistent case. For example, &ldquo;URL&rdquo; should appear as &ldquo;URL&rdquo; or &ldquo;url&rdquo; (as in &ldquo;urlPony&rdquo;, or &ldquo;URLPony&rdquo;), never as &ldquo;Url&rdquo;. As an example: ServeHTTP not ServeHttp. For identifiers with multiple initialized &ldquo;words&rdquo;, use for example &ldquo;xmlHTTPRequest&rdquo; or &ldquo;XMLHTTPRequest&rdquo;.</p>
-<p>This rule also applies to &ldquo;ID&rdquo; when it is short for &ldquo;identifier&rdquo; (which is pretty much all cases when it&rsquo;s not the &ldquo;id&rdquo; as in &ldquo;ego&rdquo;, &ldquo;superego&rdquo;), so write &ldquo;appID&rdquo; instead of &ldquo;appId&rdquo;.</p>
+</div><h2 id="首字母缩写">首字母缩写</h2>
+<p>名字中的单词是缩写或首字母缩写(例如:“URL”或“NATO”)是，大小写要保持一致。例如，&ldquo;URL&rdquo; 应该写成 &ldquo;URL&rdquo; 或者 &ldquo;url&rdquo;，而不要写成&quot;Url&rdquo;。作为名字的一部分时，写作 &ldquo;urlPony&rdquo;，或者 &ldquo;URLPony&rdquo;. 又例如，ServeHttp 应该写成 ServeHTTP。对于具有多个初始化“单词”的标识符，可以使用例如“xmlHTTPRequest”或“xmlHTTPRequest”。</p>
+<p>当“ID”是“identifier”的缩写时，这条规则也适用，所以写成“appID”，而不是“appId”。</p>
 <p>protocol buffer 编译器生成的代码不受此规则约束。人类编写的代码比机器编写的代码有更高的标准。</p>
 <h2 id="interfaces">Interfaces</h2>
 <p>Go接口通常属于使用 接口类型，而不是实现这些值的包。的 实现包应该返回具体的(通常是指针或结构) 类型:这样，新的方法可以添加到实现中而不需要 需要广泛的重构。</p>
@@ -795,10 +795,10 @@ Avoid meaningless package names like util, common, misc, api, types, and interfa
 <li>Don&rsquo;t mix receiver types. Choose either pointers or struct types for all available methods.</li>
 <li>Finally, when in doubt, use a pointer receiver.</li>
 </ul>
-<h2 id="synchronous-functions">Synchronous Functions</h2>
-<p>Prefer synchronous functions - functions which return their results directly or finish any callbacks or channel ops before returning - over asynchronous ones.</p>
+<h2 id="同步函数">同步函数</h2>
+<p>更推荐使用同步函数，而非异步函数。同步函数是那些直接返回结果，或者在返回结果之前，完成所有回调或信道操作的函数。</p>
 <p>Synchronous functions keep goroutines localized within a call, making it easier to reason about their lifetimes and avoid leaks and data races. They&rsquo;re also easier to test: the caller can pass an input and check the output without the need for polling or synchronization.</p>
-<p>If callers need more concurrency, they can add it easily by calling the function from a separate goroutine. But it is quite difficult - sometimes impossible - to remove unnecessary concurrency at the caller side.</p>
+<p>如果调用者需要更高的并发性，他们可以在其他 goroutine 中来调用该函数。 But it is quite difficult - sometimes impossible - to remove unnecessary concurrency at the caller side.</p>
 <h2 id="有意义的测试错误信息">有意义的测试错误信息</h2>
 <p>测试代码失败的时候，应该给出有用的信息，说明出了什么问题，输入是什么，期望得到什么，预期得到什么。你可能会写一些 <code>assertFoo</code> 工具函数，不过也要确保这些函数输出有用的错误信息。写测试代码时，要假定调试这些测试代码的人不是你，也不是你的团队成员。一个典型的Go测试失败如下:</p>
 <div class="highlight"><div class="chroma">
