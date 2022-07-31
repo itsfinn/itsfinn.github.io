@@ -6,7 +6,16 @@
     <description>Recent content in Posts on itsfinn&#39;s blog.</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 18 Apr 2021 13:04:21 +0800</lastBuildDate><atom:link href="https://itsfinn.cc/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 31 Jul 2022 10:00:00 +0800</lastBuildDate><atom:link href="https://itsfinn.cc/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>k8s资源名称规范</title>
+      <link>https://itsfinn.cc/post/kubernetes-resource-name-spec/</link>
+      <pubDate>Sun, 31 Jul 2022 10:00:00 +0800</pubDate>
+      
+      <guid>https://itsfinn.cc/post/kubernetes-resource-name-spec/</guid>
+      <description>汇总表格 类型 中文名称 英文名称 最大长度 正则表达式/备注 DNS子域名 Pod Pod 253 ^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$ ConfigMap 253 同上 网络策略 NetworkPolicy 253 同上 RFC 1123 标签名 服务 Service 63 命名空间 Namespace 63 RFC 1035 标签名 63 路径分段名称 Role RoleBinding ClusterRole ClusterRoleBinding helm 应用名称 应用名称 53 ^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$</description>
+    </item>
+    
     <item>
       <title>Go Code Review Comments</title>
       <link>https://itsfinn.cc/post/go-code-review-comments/</link>

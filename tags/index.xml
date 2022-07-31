@@ -6,7 +6,34 @@
     <description>Recent content in Tags on itsfinn&#39;s blog.</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 18 Apr 2021 13:04:21 +0800</lastBuildDate><atom:link href="https://itsfinn.cc/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 31 Jul 2022 10:00:00 +0800</lastBuildDate><atom:link href="https://itsfinn.cc/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>kubernetes</title>
+      <link>https://itsfinn.cc/tags/kubernetes/</link>
+      <pubDate>Sun, 31 Jul 2022 10:00:00 +0800</pubDate>
+      
+      <guid>https://itsfinn.cc/tags/kubernetes/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>resource name spec</title>
+      <link>https://itsfinn.cc/tags/resource-name-spec/</link>
+      <pubDate>Sun, 31 Jul 2022 10:00:00 +0800</pubDate>
+      
+      <guid>https://itsfinn.cc/tags/resource-name-spec/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>资源名称规范</title>
+      <link>https://itsfinn.cc/tags/%E8%B5%84%E6%BA%90%E5%90%8D%E7%A7%B0%E8%A7%84%E8%8C%83/</link>
+      <pubDate>Sun, 31 Jul 2022 10:00:00 +0800</pubDate>
+      
+      <guid>https://itsfinn.cc/tags/%E8%B5%84%E6%BA%90%E5%90%8D%E7%A7%B0%E8%A7%84%E8%8C%83/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>code review</title>
       <link>https://itsfinn.cc/tags/code-review/</link>

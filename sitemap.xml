@@ -3,7 +3,31 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://itsfinn.cc/categories/</loc>
-    <lastmod>2021-04-18T13:04:21+08:00</lastmod>
+    <lastmod>2022-07-31T10:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://itsfinn.cc/</loc>
+    <lastmod>2022-07-31T10:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://itsfinn.cc/categories/k8s/</loc>
+    <lastmod>2022-07-31T10:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://itsfinn.cc/post/kubernetes-resource-name-spec/</loc>
+    <lastmod>2022-07-31T10:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://itsfinn.cc/tags/kubernetes/</loc>
+    <lastmod>2022-07-31T10:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://itsfinn.cc/post/</loc>
+    <lastmod>2022-07-31T10:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://itsfinn.cc/tags/resource-name-spec/</loc>
+    <lastmod>2022-07-31T10:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://itsfinn.cc/tags/</loc>
+    <lastmod>2022-07-31T10:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://itsfinn.cc/tags/%E8%B5%84%E6%BA%90%E5%90%8D%E7%A7%B0%E8%A7%84%E8%8C%83/</loc>
+    <lastmod>2022-07-31T10:00:00+08:00</lastmod>
   </url><url>
     <loc>https://itsfinn.cc/tags/code-review/</loc>
     <lastmod>2021-04-18T13:04:21+08:00</lastmod>
@@ -15,15 +39,6 @@
     <lastmod>2021-04-18T13:04:21+08:00</lastmod>
   </url><url>
     <loc>https://itsfinn.cc/post/go-code-review-comments/</loc>
-    <lastmod>2021-04-18T13:04:21+08:00</lastmod>
-  </url><url>
-    <loc>https://itsfinn.cc/</loc>
-    <lastmod>2021-04-18T13:04:21+08:00</lastmod>
-  </url><url>
-    <loc>https://itsfinn.cc/post/</loc>
-    <lastmod>2021-04-18T13:04:21+08:00</lastmod>
-  </url><url>
-    <loc>https://itsfinn.cc/tags/</loc>
     <lastmod>2021-04-18T13:04:21+08:00</lastmod>
   </url><url>
     <loc>https://itsfinn.cc/tags/mysql/</loc>
